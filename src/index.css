@@ -7,12 +7,15 @@
 }
 
 :root {
+  --surface: 255 255 255;
   --foreground: 0 0 0;
+  --accent: 160 32 240;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
+  background-color: rgb(var(--surface));
   color: rgb(var(--foreground));
 
   font-synthesis: none;
