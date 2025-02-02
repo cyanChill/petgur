@@ -2,6 +2,8 @@ import styled, { keyframes } from "styled-components";
 
 import type { Pet } from "~/services/PetsStore";
 
+import { Checkbox } from "./Checkbox";
+
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -15,6 +17,7 @@ const Container = styled.article<{ $delayMs: number }>`
   position: relative;
   padding: 0.5rem;
   padding-block-start: 0;
+
   opacity: 0;
   animation: ${fadeIn} 300ms linear forwards;
   animation-delay: ${(props) => `${props.$delayMs}ms`};
@@ -50,18 +53,10 @@ const Image = styled.img`
   transition: transform 300ms ease-in-out;
 `;
 
-const Checkbox = styled.input`
+const Selectionbox = styled(Checkbox)`
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  height: 1.25rem;
-  width: 1.25rem;
-
-  accent-color: rgb(var(--accent));
-
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 const Date = styled.p`
@@ -103,8 +98,7 @@ export function PetCard({ index, pet, isSelected, toggleSelection }: Props) {
         <Image src={pet.url} alt={pet.description} />
         <Date>{pet.created}</Date>
       </ImageContainer>
-      <Checkbox
-        type="checkbox"
+      <Selectionbox
         checked={isSelected}
         // To stop click propagation to container.
         onClick={(e) => e.stopPropagation()}

@@ -1,46 +1,51 @@
 import styled from "styled-components";
 
-const Container = styled.div`
-  overflow: hidden;
-  background-color: rgb(var(--canvas));
-  border-radius: 0.5rem;
-
-  &:focus-within {
-    outline: 2px solid black;
-  }
-`;
-
-const ButtonEl = styled("button")<{ $colorVar: `--${string}` }>`
+export const Button = styled.button.attrs<{ $colorVar?: `--${string}` }>(
+  (props) => ({ $colorVar: props.$colorVar || "--onSurface" }),
+)`
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
   padding: 0.75rem;
 
   background-color: ${(props) => `rgb(var(${props.$colorVar}))`};
   border: none;
+  border-radius: 0.5rem;
+
+  &:before {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    background-color: rgb(var(--canvas));
+    border-radius: 0.5rem;
+  }
 
   &:disabled {
+    background-color: ${(props) => `rgb(var(${props.$colorVar}) / 0.5)`};
+  }
+
+  &:disabled > * {
     opacity: 0.5;
   }
 
   &:enabled:hover {
     cursor: pointer;
+    background-color: ${(props) => `rgb(var(${props.$colorVar}) / 0.75)`};
+  }
+
+  &:enabled:hover > * {
     opacity: 0.75;
   }
 
   &:focus {
-    outline: none;
+    outline: 2px solid black;
   }
 `;
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  $colorVar: `--${string}`;
-}
-
-export function Button(props: Props) {
-  return (
-    <Container>
-      <ButtonEl {...props} />
-    </Container>
-  );
-}
+export const AccentButton = styled(Button).attrs(() => ({
+  $colorVar: "--accent",
+}))``;

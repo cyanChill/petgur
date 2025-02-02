@@ -8,19 +8,14 @@ import Deselect from "~/assets/deselect.svg";
 import SelectAll from "~/assets/select-all.svg";
 import { usePets } from "~/services/PetsStore";
 
-import { Button } from "./Button";
+import { AccentButton, Button } from "./Button";
+import { SVGImage } from "./SVGImage";
 
 const Container = styled.div`
   align-self: end;
   display: flex;
   flex-shrink: 1;
   gap: 0.5rem;
-`;
-
-const SVGImage = styled.img`
-  pointer-events: none;
-  height: 1.25rem;
-  width: 1.25rem;
 `;
 
 type Props = {
@@ -67,29 +62,23 @@ export function DownloadManager({
 
   return (
     <Container>
-      <Button
-        aria-label="Select all images."
-        $colorVar="--onSurface"
-        onClick={onSelectAll}
-      >
+      <Button aria-label="Select all images." onClick={onSelectAll}>
         <SVGImage aria-hidden src={SelectAll} />
       </Button>
       <Button
         aria-label="Clear image selection."
-        $colorVar="--onSurface"
         onClick={onClearSelection}
         disabled={selected.length === 0}
       >
         <SVGImage aria-hidden src={Deselect} />
       </Button>
-      <Button
+      <AccentButton
         aria-label={`Download ${selected.length} images.`}
-        $colorVar="--accent"
         onClick={onDownloadImages}
         disabled={selected.length === 0}
       >
         <SVGImage aria-hidden src={CloudDownload} />
-      </Button>
+      </AccentButton>
     </Container>
   );
 }
