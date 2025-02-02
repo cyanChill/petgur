@@ -12,7 +12,7 @@ const Container = styled.div`
   margin-block: 2rem;
 
   background-color: rgb(var(--surface));
-  outline: 2px solid rgb(var(--foreground) / 0.25);
+  outline: 2px solid rgb(var(--onSurface));
   border-radius: 0.5rem;
 
   &:has(input:focus-within) {
@@ -23,6 +23,7 @@ const Container = styled.div`
 const Input = styled.input`
   flex-grow: 1;
   flex-shrink: 1;
+  min-width: 0;
   padding: 0.5rem 1rem;
 
   background: transparent;

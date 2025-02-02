@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+import { formatDate } from "~/utils/date";
+
 export type Pet = {
   title: string;
   description: string;
@@ -29,7 +31,11 @@ export function PetsStoreProvider(props: { children: React.ReactNode }) {
         setError(new Error("Failed to fetch pets."));
       } else {
         const petsData: Pet[] = await res.json();
-        setData(petsData.sort((a, b) => a.title.localeCompare(b.title)));
+        setData(
+          petsData
+            .map((pet) => ({ ...pet, created: formatDate(pet.created) }))
+            .sort((a, b) => a.title.localeCompare(b.title)),
+        );
       }
       setIsLoading(false);
     };

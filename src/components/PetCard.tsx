@@ -18,11 +18,33 @@ const Container = styled.article<{ $delayMs: number }>`
   animation-delay: ${(props) => `${props.$delayMs}ms`};
 `;
 
+const ImageContainer = styled.div`
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  aspect-ratio: 1 / 1;
+`;
+
 const Image = styled.img`
   max-width: 100%;
   object-fit: cover;
   aspect-ratio: 1 / 1;
-  border-radius: 1rem;
+`;
+
+const Date = styled.p`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  padding-inline: 0.5rem;
+
+  background-color: rgb(var(--accent));
+  color: rgb(var(--surface));
+
+  @media (min-width: 400px) {
+    width: auto;
+    border-start-start-radius: 0.25rem;
+  }
 `;
 
 const Title = styled.h2`
@@ -42,7 +64,10 @@ type Props = {
 export function PetCard({ index, pet }: Props) {
   return (
     <Container $delayMs={index * 50}>
-      <Image src={pet.url} alt={pet.description} />
+      <ImageContainer>
+        <Image src={pet.url} alt={pet.description} />
+        <Date>{pet.created}</Date>
+      </ImageContainer>
       <Title>{pet.title}</Title>
       <Description>{pet.description}</Description>
     </Container>
@@ -52,6 +77,10 @@ export function PetCard({ index, pet }: Props) {
 // Note: There seems to be performance issues when rendering 4 columns.
 export const PetList = styled.section`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  grid-template-columns: 1fr;
   gap: 1rem;
+
+  @media (min-width: 400px) {
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  }
 `;

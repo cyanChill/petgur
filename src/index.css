@@ -7,7 +7,9 @@
 }
 
 :root {
+  --canvas: 242 242 242;
   --surface: 255 255 255;
+  --onSurface: 204 204 204;
   --foreground: 0 0 0;
   --accent: 160 32 240;
 
@@ -15,7 +17,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  background-color: rgb(var(--surface));
+  background-color: rgb(var(--canvas));
   color: rgb(var(--foreground));
 
   font-synthesis: none;
@@ -27,6 +29,5 @@
 body {
   display: flex;
   flex-direction: column;
-  min-width: 320px;
   min-height: 100vh;
 }
