@@ -1,50 +1,67 @@
-# React + TypeScript + Vite
+# Petgur
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Petgur is a simple yet intuitive website that allows you to browse our little friends. In addition, you can download their images to use as a background or to bring a smile to your face.
 
-Currently, two official plugins are available:
+## Goals
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This app aims to accomplish the following goals:
 
-## Expanding the ESLint configuration
+- [x] Display a list of images and their associated data in a compelling and interactive way from the following endpoint (https://eulerity-hackathon.appspot.com/pets).
+  - [x] Use the `fetch` API for getting this data.
+- [x] Allow the user to select several images and download them.
+- [x] Ability to "Select All" and "Clear Selection".
+- [x] Ability to sort the pets by their name alphabetically in ascending and descending order.
+- [x] Have a search bar to filter displayed images by their title or description.
+- [x] Use [`styled-components`](https://styled-components.com/) for the UI.
+- [x] Use [`react-router-dom`](https://reactrouter.com/web/guides/quick-start) for navigation.
+  - [x] Have an additional "About Me" page or any other pages that may be relevant.
+- [x] Create a custom hook for loading & managing data.
+- [x] Manage global and local state effectively (ie: by using context, redux, hooks, etc.).
+- [x] Document code where necessary.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Design
 
-- Configure the top-level `parserOptions` property like this:
+This website was built using:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+[![vite][vite]][vite-url]
+[![React][React]][React-url]
+[![TypeScript][TypeScript]][TypeScript-url]
+[![React Router][React Router]][React Router-url]
+[![styled-components][styled-components]][styled-components-url]
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- [`file-saver`](https://github.com/eligrey/FileSaver.js): Makes saving files to your device easier.
+- [`jszip`](https://github.com/Stuk/jszip): Makes creating zip files easy.
 
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
+## Installation
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
-```
+1. Clone the repository.
+   ```sh
+   git clone https://github.com/cyanChill/petgur.git
+   ```
+2. Install the dependencies.
+   ```sh
+   pnpm i
+   ```
+3. Run the app in development or production mode.
+
+   ```sh
+   # Development Mode:
+   pnpm dev
+
+   # Production Mode:
+   pnpm build && pnpm preview
+   ```
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[React]: https://img.shields.io/badge/React-222222?style=for-the-badge&logo=React&logoColor=61DAFB
+[React-url]: https://reactnative.dev/
+[React Router]: https://img.shields.io/badge/React%20Router-CA4245?style=for-the-badge&logo=React+Router&logoColor=FFFFFF
+[React Router-url]: https://reactrouter.com/web/guides/quick-start
+[styled-components]: https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=FFFFFF
+[styled-components-url]: https://styled-components.com/
+[TypeScript]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=FFFFFF
+[TypeScript-url]: https://www.typescriptlang.org/
+[Vite]: https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=FFFFFF
+[Vite-url]: https://vite.dev/
