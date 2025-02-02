@@ -3,13 +3,8 @@ import styled from "styled-components";
 import ChevronDown from "~/assets/chevron-down-outline.svg";
 
 const Container = styled.div`
-  z-index: 100;
-  position: sticky;
-  top: 2rem;
-  left: 0;
   display: flex;
   gap: 0.25rem;
-  margin-block: 2rem;
 
   background-color: rgb(var(--surface));
   outline: 2px solid rgb(var(--onSurface));

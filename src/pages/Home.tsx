@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { usePets } from "~/services/PetsStore";
 
+import { DownloadManager } from "~/components/DownloadManager";
 import { PetCard, PetList } from "~/components/PetCard";
 import { SearchSortCombo } from "~/components/SearchSortCombo";
 
@@ -11,6 +12,14 @@ export function Home() {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const { data, isLoading, error } = usePets();
   const [selectedImages, setSelectedImages] = useState<number[]>([]);
+
+  const onSelectAll = useCallback(() => {
+    setSelectedImages(data.map(({ id }) => id));
+  }, [data]);
+
+  const onClearSelection = useCallback(() => {
+    setSelectedImages([]);
+  }, []);
 
   const toggleSelection = useCallback((id: number) => {
     setSelectedImages((prev) => {
@@ -41,11 +50,18 @@ export function Home() {
   if (error) return <ErrorMessage>{error.message}</ErrorMessage>;
   return (
     <>
-      <SearchSortCombo
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        setSortOrder={setSortOrder}
-      />
+      <ActionContainer>
+        <SearchSortCombo
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setSortOrder={setSortOrder}
+        />
+        <DownloadManager
+          selected={selectedImages}
+          onSelectAll={onSelectAll}
+          onClearSelection={onClearSelection}
+        />
+      </ActionContainer>
       <PetList>
         {sortedPets.map((pet, idx) => (
           <PetCard
@@ -61,7 +77,20 @@ export function Home() {
   );
 }
 
+const ActionContainer = styled.div`
+  z-index: 100;
+  position: sticky;
+  top: 2rem;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-block: 2rem;
+`;
+
 const ErrorMessage = styled.p`
+  margin: 2rem;
+
   color: red;
   font-weight: 600;
   text-align: center;
