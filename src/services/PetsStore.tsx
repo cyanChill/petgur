@@ -28,8 +28,8 @@ export function PetsStoreProvider(props: { children: React.ReactNode }) {
       if (!res.ok) {
         setError(new Error("Failed to fetch pets."));
       } else {
-        const petsData = await res.json();
-        setData(petsData);
+        const petsData: Pet[] = await res.json();
+        setData(petsData.sort((a, b) => a.title.localeCompare(b.title)));
       }
       setIsLoading(false);
     };

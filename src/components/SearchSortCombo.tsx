@@ -70,14 +70,27 @@ const SelectCheveron = styled.img`
   transform: translateY(-50%);
 `;
 
-export function SearchSortCombo() {
+export function SearchSortCombo(props: {
+  searchQuery: string;
+  setSearchQuery: (newQuery: string) => void;
+  setSortOrder: (order: "asc" | "desc") => void;
+}) {
   return (
     <Container>
-      <Input type="text" placeholder="Search" />
+      <Input
+        type="text"
+        placeholder="Search"
+        value={props.searchQuery}
+        onChange={(e) => props.setSearchQuery(e.target.value)}
+      />
       <SelectContainer>
-        <SelectInput>
-          <option>A-Z</option>
-          <option>Z-A</option>
+        <SelectInput
+          onChange={(e) =>
+            props.setSortOrder(e.target.value === "asc" ? "asc" : "desc")
+          }
+        >
+          <option value="asc">A-Z</option>
+          <option value="desc">Z-A</option>
         </SelectInput>
         <SelectCheveron aria-hidden src={ChevronDown} />
       </SelectContainer>

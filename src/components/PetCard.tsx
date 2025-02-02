@@ -49,6 +49,7 @@ export function PetCard({ index, pet }: Props) {
   );
 }
 
+// Note: There seems to be performance issues when rendering 4 columns.
 export const PetList = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
