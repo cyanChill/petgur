@@ -56,6 +56,10 @@ const SelectInput = styled.select`
   font-size: 1rem;
   border: none;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   &:focus-within {
     outline: none;
   }

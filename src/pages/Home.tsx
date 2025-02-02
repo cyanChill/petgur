@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 
 import { usePets } from "~/services/PetsStore";
@@ -10,6 +10,14 @@ export function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const { data, isLoading, error } = usePets();
+  const [selectedImages, setSelectedImages] = useState<number[]>([]);
+
+  const toggleSelection = useCallback((id: number) => {
+    setSelectedImages((prev) => {
+      if (prev.includes(id)) return prev.filter((imgId) => imgId !== id);
+      return [...prev, id];
+    });
+  }, []);
 
   const filteredPets = useMemo(() => {
     const trimmedQuery = searchQuery.trim().toLowerCase();
@@ -40,7 +48,13 @@ export function Home() {
       />
       <PetList>
         {sortedPets.map((pet, idx) => (
-          <PetCard key={pet.id} index={idx} pet={pet} />
+          <PetCard
+            key={pet.id}
+            index={idx}
+            pet={pet}
+            isSelected={selectedImages.includes(pet.id)}
+            toggleSelection={toggleSelection}
+          />
         ))}
       </PetList>
     </>

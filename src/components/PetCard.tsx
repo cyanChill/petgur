@@ -13,13 +13,30 @@ const fadeIn = keyframes`
 
 const Container = styled.article<{ $delayMs: number }>`
   position: relative;
+  padding: 0.5rem;
+  padding-block-start: 0;
   opacity: 0;
   animation: ${fadeIn} 300ms linear forwards;
   animation-delay: ${(props) => `${props.$delayMs}ms`};
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover img {
+    transform: scale(1.15);
+  }
+
+  &:has(input:checked) {
+    background-color: rgb(var(--surface));
+    border-radius: 1rem;
+    outline: 2px solid rgb(var(--accent));
+  }
 `;
 
 const ImageContainer = styled.div`
   position: relative;
+  margin-inline: -0.5rem;
   overflow: hidden;
   border-radius: 1rem;
   aspect-ratio: 1 / 1;
@@ -29,6 +46,22 @@ const Image = styled.img`
   max-width: 100%;
   object-fit: cover;
   aspect-ratio: 1 / 1;
+
+  transition: transform 300ms ease-in-out;
+`;
+
+const Checkbox = styled.input`
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  height: 1.25rem;
+  width: 1.25rem;
+
+  accent-color: rgb(var(--accent));
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Date = styled.p`
@@ -58,16 +91,25 @@ const Description = styled.p`
 
 type Props = {
   index: number;
+  isSelected: boolean;
   pet: Pet;
+  toggleSelection: (id: number) => void;
 };
 
-export function PetCard({ index, pet }: Props) {
+export function PetCard({ index, pet, isSelected, toggleSelection }: Props) {
   return (
-    <Container $delayMs={index * 50}>
+    <Container $delayMs={index * 50} onClick={() => toggleSelection(pet.id)}>
       <ImageContainer>
         <Image src={pet.url} alt={pet.description} />
         <Date>{pet.created}</Date>
       </ImageContainer>
+      <Checkbox
+        type="checkbox"
+        checked={isSelected}
+        // To stop click propagation to container.
+        onClick={(e) => e.stopPropagation()}
+        onChange={() => toggleSelection(pet.id)}
+      />
       <Title>{pet.title}</Title>
       <Description>{pet.description}</Description>
     </Container>
