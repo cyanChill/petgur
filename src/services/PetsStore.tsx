@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { formatDate } from "~/utils/date";
 
 export type Pet = {
+  id: number;
   title: string;
   description: string;
   url: string;
@@ -33,7 +34,15 @@ export function PetsStoreProvider(props: { children: React.ReactNode }) {
         const petsData: Pet[] = await res.json();
         setData(
           petsData
-            .map((pet) => ({ ...pet, created: formatDate(pet.created) }))
+            .map((pet, idx) => ({
+              ...pet,
+              // Generate an `id` after fetching to make sure each entry
+              // is unique.
+              id: idx,
+              // Format the date here to prevent calling `formatDate`
+              // whenever the component re-renders.
+              created: formatDate(pet.created),
+            }))
             .sort((a, b) => a.title.localeCompare(b.title)),
         );
       }

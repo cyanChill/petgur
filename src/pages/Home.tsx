@@ -40,7 +40,7 @@ export function Home() {
       />
       <PetList>
         {sortedPets.map((pet, idx) => (
-          <PetCard key={idx} index={idx} pet={pet} />
+          <PetCard key={pet.id} index={idx} pet={pet} />
         ))}
       </PetList>
     </>
